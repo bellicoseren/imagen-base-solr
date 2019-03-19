@@ -1,0 +1,15 @@
+<dataConfig>
+  <dataSource name="jdbc" driver="oracle.jdbc.OracleDriver" url="jdbc:oracle:thin:@//172.16.6.79:1521/frame" user="frame" password="frame"/>
+  <document>
+    <entity name="AN_INFORMES" query="SELECT FRAME.AN_INFORMES.ID_INFORME as ID_ANALISIS,FRAME.AN_INFORMES.TITULO_INFORME as TITULO,dbms_lob.substr(FRAME.AN_INFORMES.RESUMEN_INFORME) as RESUMEN_INFORME,dbms_lob.substr(FRAME.AN_INFORMES.KEYWORDS_INFORME) as KEYWORDS_INFORME, FRAME.AN_INFORMES.NOMBRE_IMAGEN as NOMBRE_IMAGEN,AN_CATEGORIAS.NOMBRE_CATEGORIA as NOMBRE_CATEGORIA,null as NOMBRE_ARCHIVO_DESCARGA, 0 as ORIGEN FROM FRAME.AN_INFORME_CATEGORIAS,FRAME.AN_INFORMES,FRAME.AN_CATEGORIAS WHERE AN_INFORME_CATEGORIAS.INFORME=AN_INFORMES.ID_INFORME AND AN_INFORME_CATEGORIAS.CATEGORIA=AN_CATEGORIAS.ID_CATEGORIA union select FRAME.AN_PUBLICACIONES.ID_PUBLICACION as ID_ANALISIS,FRAME.AN_PUBLICACIONES.TITULO_PUBLICACION as TITULO, dbms_lob.substr(FRAME.AN_PUBLICACIONES.DESCRIPCION_PUBLICACION) as RESUMEN_INFORME,null as KEYWORDS_INFORME, FRAME.AN_PUBLICACIONES.NOMBRE_IMAGEN as NOMBRE_IMAGEN,null as NOMBRE_CATEGORIA ,FRAME.AN_PUBLICACIONES.NOMBRE_ARCHIVO_DESCARGA,1 as ORIGEN from FRAME.AN_PUBLICACIONES" transformer="ClobTransformer">
+        <field column="ID_ANALISIS" name="id"/>
+        <field column="TITULO" name="analysisTitle"/>
+        <field column="RESUMEN_INFORME" name="analysisDesc"/>
+        <field column="KEYWORDS_INFORME" name="analysisKeywords"/>
+        <field column="NOMBRE_IMAGEN" name="URLanalysisImage"/>
+        <field column="NOMBRE_CATEGORIA" name="categoryName"/>
+        <field column="NOMBRE_ARCHIVO_DESCARGA" name="downloadFile"/>
+        <field column="ORIGEN" name="originSite"/>
+    </entity>	
+  </document>
+</dataConfig>
